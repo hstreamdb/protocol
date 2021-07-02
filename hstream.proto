@@ -82,11 +82,7 @@ message StreamOffset {
 
 message CommitOffsetResponse {
   string subscriptionId = 1;
-  repeated StreamCommitOffsetResponse responses = 2;
-}
-
-message StreamCommitOffsetResponse {
-  string streamName = 1;
+  repeated string successfulCommits = 2;
 }
 
 message CreateStreamsRequest {
