@@ -44,7 +44,7 @@ message StreamSubscription {
 }
 
 message SubscriptionOffset {
-  enum SpecailOffset {
+  enum SpecialOffset {
     EARLIST = 0;
     LATEST = 1;
   }
