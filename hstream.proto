@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
@@ -83,7 +82,7 @@ message StreamOffset {
 
 message CommitOffsetResponse {
   string subscriptionId = 1;
-  repeated StreamCommitOffsetResponse responses = 1;
+  repeated StreamCommitOffsetResponse responses = 2;
 }
 
 message StreamCommitOffsetResponse {
@@ -134,7 +133,7 @@ message HStreamRecordHeader {
   // Required.
   // The time at which the message was published,
   // populated by the server.
-  Timestamp publish_time = 3;
+  google.protobuf.Timestamp publish_time = 3;
 
   // Optional. 
   // key for the message.  
