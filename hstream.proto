@@ -7,15 +7,17 @@ service HStreamApi {
 
   rpc Append(AppendRequest) returns (AppendResponse) {}
 
-  rpc Subscribe(SubscribeRequest) returns (SubscribeResponse) {}
+  rpc Subscribe(Subscription) returns (Subscription) {}
 
   rpc Fetch(FetchRequest) returns (FetchResponse) {}
 
-  rpc CommitOffset(CommitOffsetRequest) returns (CommitOffsetResponse) {}
+  rpc CommitOffset(CommittedOffset) returns (CommittedOffset) {}
 
-  rpc CreateStreams(CreateStreamsRequest) returns (CreateStreamsResponse) {}
+  rpc CreateStream(Stream) returns (Stream) {}
 
-  rpc RemoveStreams(RemoveStreamsRequest) returns (google.protobuf.Empty) {}
+  rpc DeleteStream(DeleteStreamRequest) returns (google.protobuf.Empty) {}
+
+  rpc ListStreams(google.protobuf.Empty) returns (ListStreamsResponse) {}
 
 }
 
@@ -29,18 +31,10 @@ message AppendResponse {
   repeated RecordId recordIds = 2;
 }
 
-message SubscribeRequest {
+message Subscription {
   string subscriptionId = 1;
-  repeated StreamSubscription subscriptions = 2;
-}
-
-message SubscribeResponse {
-  string subscriptionId = 1;
-}
-
-message StreamSubscription {
-  string streamName = 1;
-  SubscriptionOffset offset = 2;
+  string streamName = 2;
+  SubscriptionOffset offset = 3;
 }
 
 message SubscriptionOffset {
@@ -50,7 +44,7 @@ message SubscriptionOffset {
   }
 
   oneof offset {
-    SpecailOffset specialOffset = 1;
+    SpecialOffset specialOffset = 1;
     RecordId recordOffset = 2;
   }
 }
@@ -62,31 +56,13 @@ message FetchRequest {
 }
 
 message FetchResponse {
-  repeated FetchedRecord records = 1;
+  repeated bytes records = 1;
 }
 
-message FetchedRecord {
-  string streamName = 1;
-  repeated bytes records = 2;
-}
-
-message CommitOffsetRequest {
+message CommittedOffset {
   string subscriptionId = 1;
-  repeated StreamOffset streamOffsets = 2;
-}
-
-message StreamOffset {
-  string streamName = 1;
-  RecordId offset = 2;
-}
-
-message CommitOffsetResponse {
-  string subscriptionId = 1;
-  repeated string successfulCommits = 2;
-}
-
-message CreateStreamsRequest {
-  repeated Stream streams = 1;
+  string streamName = 2;
+  RecordId offset = 3;
 }
 
 message Stream {
@@ -94,16 +70,12 @@ message Stream {
   uint32 replicationFactor = 2;
 }
 
-message CreateStreamsResponse {
-  repeated Stream streams = 1;
-}
-
-message RemoveStreamsRequest {
-  repeated RemoveStreamRequest requests = 1;
-}
-
-message RemoveStreamRequest {
+message DeleteStreamRequest {
   string streamName = 1;
+}
+
+message ListStreamsResponse {
+  repeated Stream streams = 1;
 }
 
 message HStreamRecord {
