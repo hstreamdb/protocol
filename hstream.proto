@@ -60,7 +60,12 @@ message FetchRequest {
 }
 
 message FetchResponse {
-  repeated bytes records = 1;
+  repeated ReceivedRecord receivedRecords = 1;
+}
+
+message ReceivedRecord {
+  RecordId recordId = 1; 
+  bytes record = 2;
 }
 
 message CommittedOffset {
