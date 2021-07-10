@@ -14,6 +14,10 @@ service HStreamApi {
 
   rpc Subscribe(Subscription) returns (Subscription) {}
 
+  rpc DeleteSubscription(DeleteSubscriptionRequest) returns (google.protobuf.Empty) {}
+
+  rpc ListSubscriptions(google.protobuf.Empty) returns (ListSubscriptionsResponse) {}
+
   rpc Fetch(FetchRequest) returns (FetchResponse) {}
 
   rpc CommitOffset(CommittedOffset) returns (CommittedOffset) {}
@@ -129,4 +133,12 @@ message RecordId {
 
 message ExecuteStreamQueryRequest {
   string sql = 1;
+}
+
+message DeleteSubscriptionRequest {
+  string subscriptionId = 1;
+}
+
+message ListSubscriptionsResponse {
+  repeated Subscription subscription = 1;
 }
