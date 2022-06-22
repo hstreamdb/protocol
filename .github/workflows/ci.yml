@@ -23,8 +23,8 @@ jobs:
           clang-format -i hstream.proto && \
           git diff-index --exit-code HEAD
 
-  check-buf-lint:
-    runs-on: ubuntu-latest
+  # check-buf-lint:
+  #   runs-on: ubuntu-latest
 
   check-haskell-build:
     runs-on: ubuntu-latest
@@ -48,11 +48,11 @@ jobs:
             --proto hstream.proto           \
             --out /dev/null
 
-  check-java-build:
-    runs-on: ubuntu-latest
+  # check-java-build:
+  #   runs-on: ubuntu-latest
 
-  check-go-build:
-    runs-on: ubuntu-latest
+  # check-go-build:
+  #   runs-on: ubuntu-latest
 
-  check-python-build:
-    runs-on: ubuntu-latest
+  # check-python-build:
+  #   runs-on: ubuntu-latest
