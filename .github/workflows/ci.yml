@@ -38,6 +38,10 @@ jobs:
           ghc-version: "8.10.7"
           cabal-version: "latest"
 
+      - name: install protobuf-compiler
+        run: |
+          sudo apt-get -y install protobuf-compiler
+
       - run: |
           git clone --depth 1 https://github.com/hstreamdb/proto3-suite.git
           cd proto3-suite && cabal build all && cabal install compile-proto-file_hstream && cd ..
