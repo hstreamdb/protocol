@@ -26,45 +26,6 @@ jobs:
   # check-buf-lint:
   #   runs-on: ubuntu-latest
 
-  check-haskell-build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: "recursive"
-
-      - uses: haskell/actions/setup@v2
-        with:
-          ghc-version: "8.10.7"
-          cabal-version: "latest"
-
-      - name: install protobuf
-        run: |
-          sudo apt-get -y install libprotobuf-dev
-
-      - run: |
-          git clone --depth 1 https://github.com/hstreamdb/proto3-suite.git
-          cd proto3-suite && cabal build all && cabal install compile-proto-file_hstream && cd ..
-          PROTO_COMPILE_HS="$HOME/.cabal/bin/compile-proto-file_hstream"
-          $PROTO_COMPILE_HS                 \
-            --includeDir /usr/include       \
-            --includeDir .                  \
-            --proto hstream.proto           \
-            --out .
-
-      - name: Cache Cabal Build
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cabal/packages
-            ~/.cabal/store
-            dist-newstyle
-          key: ${{ runner.os }}-${{ hashFiles('**/*.cabal', '**/cabal.project', '**/cabal.project.freeze') }}
-          restore-keys: ${{ runner.os }}-
-
-  # check-java-build:
-  #   runs-on: ubuntu-latest
-
   check-go-build:
     runs-on: ubuntu-latest
     steps:
@@ -87,6 +48,3 @@ jobs:
                  --go_out=.      --go_opt=paths=source_relative      \
                  --go-grpc_out=. --go-grpc_opt=paths=source_relative \
                    ./hstream.proto
-
-  # check-python-build:
-  #   runs-on: ubuntu-latest
