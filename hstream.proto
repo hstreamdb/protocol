@@ -1,3 +1,11 @@
+// ---------------------------------------------------------------------------
+// HStreamDB public APIs
+// ---------------------------------------------------------------------------
+
+// N.B. This value is used as a version number of multi language api packages.
+//
+// __VERSION__ = 0.1.1
+
 syntax = "proto3";
 
 package hstream.server;
@@ -51,6 +59,9 @@ service HStreamApi {
   rpc DescribeCluster(google.protobuf.Empty) returns (DescribeClusterResponse) {
   }
 
+  // Admin Command
+  rpc SendAdminCommand(AdminCommandRequest) returns (AdminCommandResponse);
+
   // ---------------------------------------------------------------------------
   // Developing APIs
   // ---------------------------------------------------------------------------
@@ -60,9 +71,6 @@ service HStreamApi {
       returns (PerStreamTimeSeriesStatsResponse);
   rpc PerStreamTimeSeriesStatsAll(PerStreamTimeSeriesStatsAllRequest)
       returns (PerStreamTimeSeriesStatsAllResponse);
-
-  // Admin Command
-  rpc SendAdminCommand(AdminCommandRequest) returns (AdminCommandResponse);
 
   // only for push query
   // e.g., select (with emit changes)
@@ -159,15 +167,14 @@ message CheckSubscriptionExistResponse { bool exists = 1; }
 message StreamingFetchRequest {
   string subscriptionId = 1;
   string consumerName = 2;
-  string orderingKey = 3;
-  repeated RecordId ackIds = 4;
+  repeated RecordId ackIds = 3;
 }
 
 message StreamingFetchResponse { repeated ReceivedRecord receivedRecords = 1; }
 
 message ReceivedRecord {
   RecordId recordId = 1;
-  bytes record = 2;
+  bytes record = 2; // protobuf encoded HStreamRecord
 }
 
 message StreamOffset {
