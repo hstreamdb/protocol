@@ -416,6 +416,7 @@ message DescribeClusterResponse {
   string protocolVersion = 1;
   string serverVersion = 2;
   repeated ServerNode serverNodes = 3;
+  repeated ServerNodeStatus serverNodesStatus = 4;
 }
 
 message ServerNode {
