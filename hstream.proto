@@ -4,7 +4,7 @@
 
 // N.B. This value is used as a version number of multi language api packages.
 //
-// __VERSION__ = 0.1.1
+// __VERSION__ = 0.2.0
 
 syntax = "proto3";
 
@@ -110,7 +110,30 @@ service HStreamApi {
   // FIXME: (store)node related apis
   rpc ListNodes(ListNodesRequest) returns (ListNodesResponse) {}
   rpc GetNode(GetNodeRequest) returns (Node) {}
+
+  rpc ReadShard(ReadShardRequest) returns (ReadShardResponse) {}
 }
+
+enum SpecialOffset {
+  EARLIEST = 0;
+  LATEST = 1;
+}
+
+message ShardOffset {
+  oneof offset {
+    SpecialOffset SpecialOffset = 1;
+    RecordId recordOffset = 2;
+  }
+}
+
+message ReadShardRequest {
+  string streamName = 1;
+  string shardId = 2;
+  ShardOffset offset = 3;
+  uint32 maxRead = 4;
+}
+
+message ReadShardResponse { repeated ReceivedRecord records = 1; }
 
 message EchoRequest { string msg = 1; }
 
@@ -151,6 +174,7 @@ message Subscription {
   string streamName = 2;
   int32 ackTimeoutSeconds = 3;
   int32 maxUnackedRecords = 4;
+  SpecialOffset offset = 5;
 }
 
 message DeleteSubscriptionRequest {
@@ -175,11 +199,6 @@ message ReceivedRecord {
   bytes record = 2; // protobuf encoded HStreamRecord
 }
 
-message StreamOffset {
-  string streamName = 1;
-  RecordId offset = 2;
-}
-
 message DeleteStreamRequest {
   string streamName = 1;
   bool ignoreNonExist = 2;
@@ -199,6 +218,7 @@ message Stream {
   string streamName = 1;
   uint32 replicationFactor = 2;
   uint32 backlogDuration = 3;
+  uint32 shardCount = 4;
 }
 
 message CreateQueryStreamRequest {
