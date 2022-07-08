@@ -42,6 +42,9 @@ service HStreamApi {
   rpc CreateQueryStream(CreateQueryStreamRequest)
       returns (CreateQueryStreamResponse) {}
 
+  // Shard APIs
+  rpc ListShards(ListShardsRequest) returns (ListShardsResponse) {}
+
   // Subscribe APIs
   rpc CreateSubscription(Subscription) returns (Subscription) {}
   rpc ListSubscriptions(ListSubscriptionsRequest)
@@ -272,6 +275,19 @@ message RecordId {
   // Offset of each record in the batch
   uint32 batchIndex = 3;
 }
+
+message Shard {
+  string streamName = 1;
+  uint64 shardId = 2;
+  string startHashRangeKey = 3;
+  string endHashRangeKey = 4;
+  uint64 epoch = 5;
+  bool isActive = 6;
+}
+
+message ListShardsRequest { string streamName = 1; }
+
+message ListShardsResponse { repeated Shard shards = 1; }
 
 message TerminateQueriesRequest {
   repeated string queryId = 1;
