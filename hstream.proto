@@ -37,6 +37,8 @@ service HStreamApi {
 
   // Shard APIs
   rpc ListShards(ListShardsRequest) returns (ListShardsResponse) {}
+  rpc SplitShards(SplitShardsRequest) returns (SplitShardsResponse) {}
+  rpc MergeShards(MergeShardsRequest) returns (MergeShardsResponse) {}
 
   // Subscribe APIs
   rpc CreateSubscription(Subscription) returns (Subscription) {}
@@ -269,6 +271,21 @@ message Shard {
 message ListShardsRequest { string streamName = 1; }
 
 message ListShardsResponse { repeated Shard shards = 1; }
+
+message SplitShardsRequest {
+  string streamName = 1;
+  bool halfSplit = 2;
+  string splitKey = 3;
+}
+
+message SplitShardsResponse { repeated Shard shards = 1; }
+
+message MergeShardsRequest {
+  string streamName = 1;
+  repeated string shardKeys = 2;
+}
+
+message MergeShardsResponse { Shard shard = 1; }
 
 message TerminateQueriesRequest {
   repeated string queryId = 1;
