@@ -38,9 +38,11 @@ service HStreamApi {
   // Shard APIs
   rpc ListShards(ListShardsRequest) returns (ListShardsResponse) {}
 
-  rpc CreateShardReader(CreateShardReaderRequest) returns (CreateShardReaderResponse) {}
-  rpc ReadShard(ReadShardRequest) returns (ReaderShardResponse) {}
-  rpc DeleteShardReader(DeleteShardReaderRequest) returns (google.protobuf.Empty) {}
+  rpc CreateShardReader(CreateShardReaderRequest)
+      returns (CreateShardReaderResponse) {}
+  rpc ReadShard(ReadShardRequest) returns (ReadShardResponse) {}
+  rpc DeleteShardReader(DeleteShardReaderRequest)
+      returns (google.protobuf.Empty) {}
 
   // Subscribe APIs
   rpc CreateSubscription(Subscription) returns (Subscription) {}
@@ -108,7 +110,6 @@ service HStreamApi {
   // FIXME: (store)node related apis
   rpc ListNodes(ListNodesRequest) returns (ListNodesResponse) {}
   rpc GetNode(GetNodeRequest) returns (Node) {}
-
 }
 
 enum SpecialOffset {
@@ -285,13 +286,9 @@ message ReadShardRequest {
   uint32 maxRecords = 2;
 }
 
-message DeleteShardReaderRequest {
-  string readerId = 1;
-}
+message DeleteShardReaderRequest { string readerId = 1; }
 
-message ReadShardResponse {
-  repeated ReceivedRecord receivedRecords = 1;
-}
+message ReadShardResponse { repeated ReceivedRecord receivedRecords = 1; }
 
 message TerminateQueriesRequest {
   repeated string queryId = 1;
