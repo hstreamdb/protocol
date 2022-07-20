@@ -38,6 +38,14 @@ service HStreamApi {
   // Shard APIs
   rpc ListShards(ListShardsRequest) returns (ListShardsResponse) {}
 
+  rpc CreateShardReader(CreateShardReaderRequest)
+      returns (CreateShardReaderResponse) {}
+  rpc LookupShardReader(LookupShardReaderRequest)
+      returns (LookupShardReaderResponse) {}
+  rpc ReadShard(ReadShardRequest) returns (ReadShardResponse) {}
+  rpc DeleteShardReader(DeleteShardReaderRequest)
+      returns (google.protobuf.Empty) {}
+
   // Subscribe APIs
   rpc CreateSubscription(Subscription) returns (Subscription) {}
   rpc ListSubscriptions(ListSubscriptionsRequest)
@@ -104,8 +112,6 @@ service HStreamApi {
   // FIXME: (store)node related apis
   rpc ListNodes(ListNodesRequest) returns (ListNodesResponse) {}
   rpc GetNode(GetNodeRequest) returns (Node) {}
-
-  rpc ReadShard(ReadShardRequest) returns (ReadShardResponse) {}
 }
 
 enum SpecialOffset {
@@ -119,15 +125,6 @@ message ShardOffset {
     RecordId recordOffset = 2;
   }
 }
-
-message ReadShardRequest {
-  string streamName = 1;
-  string shardId = 2;
-  ShardOffset offset = 3;
-  uint32 maxRead = 4;
-}
-
-message ReadShardResponse { repeated ReceivedRecord records = 1; }
 
 message EchoRequest { string msg = 1; }
 
@@ -269,6 +266,31 @@ message Shard {
 message ListShardsRequest { string streamName = 1; }
 
 message ListShardsResponse { repeated Shard shards = 1; }
+
+message CreateShardReaderRequest {
+  string streamName = 1;
+  uint64 shardId = 2;
+  ShardOffset shardOffset = 3;
+  string readerId = 4;
+  uint32 timeout = 5;
+}
+
+message CreateShardReaderResponse {
+  string streamName = 1;
+  uint64 shardId = 2;
+  ShardOffset shardOffset = 3;
+  string readerId = 4;
+  uint32 timeout = 5;
+}
+
+message ReadShardRequest {
+  string readerId = 1;
+  uint32 maxRecords = 2;
+}
+
+message DeleteShardReaderRequest { string readerId = 1; }
+
+message ReadShardResponse { repeated ReceivedRecord receivedRecords = 1; }
 
 message TerminateQueriesRequest {
   repeated string queryId = 1;
@@ -442,5 +464,12 @@ message LookupSubscriptionRequest { string subscriptionId = 1; }
 
 message LookupSubscriptionResponse {
   string subscriptionId = 1;
+  ServerNode serverNode = 2;
+}
+
+message LookupShardReaderRequest { string readerId = 1; }
+
+message LookupShardReaderResponse {
+  string readerId = 1;
   ServerNode serverNode = 2;
 }
