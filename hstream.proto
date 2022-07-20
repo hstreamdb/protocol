@@ -40,6 +40,8 @@ service HStreamApi {
 
   rpc CreateShardReader(CreateShardReaderRequest)
       returns (CreateShardReaderResponse) {}
+  rpc LookupShardReader(LookupShardReaderRequest)
+      returns (LookupShardReaderResponse) {}
   rpc ReadShard(ReadShardRequest) returns (ReadShardResponse) {}
   rpc DeleteShardReader(DeleteShardReaderRequest)
       returns (google.protobuf.Empty) {}
@@ -462,5 +464,12 @@ message LookupSubscriptionRequest { string subscriptionId = 1; }
 
 message LookupSubscriptionResponse {
   string subscriptionId = 1;
+  ServerNode serverNode = 2;
+}
+
+message LookupShardReaderRequest { string readerId = 1; }
+
+message LookupShardReaderResponse {
+  string readerId = 1;
   ServerNode serverNode = 2;
 }
