@@ -95,8 +95,9 @@ service HStreamApi {
   rpc ListConnectors(ListConnectorsRequest) returns (ListConnectorsResponse) {}
   rpc GetConnector(GetConnectorRequest) returns (Connector) {}
   rpc DeleteConnector(DeleteConnectorRequest) returns (google.protobuf.Empty) {}
-  rpc StartConnector(StartConnectorRequest) returns (google.protobuf.Empty) {}
-  rpc StopConnector(StopConnectorRequest) returns (google.protobuf.Empty) {}
+  rpc PauseConnector(PauseConnectorRequest) returns (google.protobuf.Empty) {}
+  rpc ResumeConnector(ResumeConnectorRequest) returns (google.protobuf.Empty) {}
+  rpc LookupConnector(LookupConnectorRequest) returns (LookupConnectorResponse) {}
 
   // view related apis
   rpc CreateView(CreateViewRequest) returns (View) {}
@@ -306,26 +307,14 @@ message ListConnectorsResponse { repeated Connector connectors = 1; }
 message GetConnectorRequest { string name = 1; }
 
 message Connector {
-  string name = 1;
-  string status = 2;
-  // TODO:
-  // string connectorType = 3;
-  // TaskStatusPB status = 2;
-  // int64 createdTime = 3;
-  // string sql = 4;
-  // connector metrics(e.g.: offset)
-
-  // enum ConnectorType {
-  //   SOURCE = 0,
-  //   SINK = 1
-  // }
+  google.protobuf.Struct info = 1;
 }
 
 message DeleteConnectorRequest { string name = 1; }
 
-message StartConnectorRequest { string name = 1; }
+message PauseConnectorRequest { string name = 1; }
 
-message StopConnectorRequest { string name = 1; }
+message ResumeConnectorRequest { string name = 1; }
 
 // View related Request and Response
 message GetViewRequest { string viewId = 1; }
@@ -431,5 +420,12 @@ message LookupSubscriptionRequest { string subscriptionId = 1; }
 
 message LookupSubscriptionResponse {
   string subscriptionId = 1;
+  ServerNode serverNode = 2;
+}
+
+message LookupConnectorRequest { string name = 1; }
+
+message LookupConnectorResponse {
+  string name = 1;
   ServerNode serverNode = 2;
 }
