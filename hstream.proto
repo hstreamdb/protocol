@@ -31,7 +31,7 @@ service HStreamApi {
   rpc CreateStream(Stream) returns (Stream) {}
   rpc DeleteStream(DeleteStreamRequest) returns (google.protobuf.Empty) {}
   rpc ListStreams(ListStreamsRequest) returns (ListStreamsResponse) {}
-  rpc LookupStream(LookupStreamRequest) returns (LookupStreamResponse) {}
+  rpc LookupShard(LookupShardRequest) returns (LookupShardResponse) {}
   rpc Append(AppendRequest) returns (AppendResponse) {}
   rpc Append0(AppendRequest) returns (AppendResponse) {}
 
@@ -449,15 +449,11 @@ message ServerNodeStatus {
   NodeState state = 2;
 }
 
-message LookupStreamRequest {
-  string streamName = 1;
-  string orderingKey = 2;
-}
+message LookupShardRequest { uint64 shardId = 1; }
 
-message LookupStreamResponse {
-  string streamName = 1;
-  string orderingKey = 2;
-  ServerNode serverNode = 3;
+message LookupShardResponse {
+  uint64 shardId = 1;
+  ServerNode serverNode = 2;
 }
 
 message LookupSubscriptionRequest { string subscriptionId = 1; }
