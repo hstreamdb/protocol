@@ -463,4 +463,5 @@ message LookupShardReaderRequest { string readerId = 1; }
 
 message LookupShardReaderResponse {
   string readerId = 1;
+  ServerNode serverNode = 2;
 }
