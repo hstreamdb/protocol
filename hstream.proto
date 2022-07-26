@@ -33,7 +33,6 @@ service HStreamApi {
   rpc ListStreams(ListStreamsRequest) returns (ListStreamsResponse) {}
   rpc LookupShard(LookupShardRequest) returns (LookupShardResponse) {}
   rpc Append(AppendRequest) returns (AppendResponse) {}
-  rpc Append0(AppendRequest) returns (AppendResponse) {}
 
   // Shard APIs
   rpc ListShards(ListShardsRequest) returns (ListShardsResponse) {}
@@ -153,12 +152,12 @@ message CommandQuery { string stmt_text = 1; }
 message CommandQueryResponse { repeated google.protobuf.Struct result_set = 1; }
 
 message AppendRequest {
-  string streamName = 1;
+  string shardId = 1;
   repeated HStreamRecord records = 2;
 }
 
 message AppendResponse {
-  string streamName = 1;
+  string shardId = 1;
   repeated RecordId recordIds = 2;
 }
 
