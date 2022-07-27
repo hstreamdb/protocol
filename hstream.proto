@@ -148,13 +148,15 @@ message CommandQuery { string stmt_text = 1; }
 message CommandQueryResponse { repeated google.protobuf.Struct result_set = 1; }
 
 message AppendRequest {
-  uint64 shardId = 1;
-  repeated HStreamRecord records = 2;
+  string streamName = 1;
+  uint64 shardId = 2;
+  repeated HStreamRecord records = 3;
 }
 
 message AppendResponse {
-  uint64 shardId = 1;
-  repeated RecordId recordIds = 2;
+  string streamName = 1;
+  uint64 shardId = 2;
+  repeated RecordId recordIds = 3;
 }
 
 message Subscription {
