@@ -118,7 +118,7 @@ enum SpecialOffset {
 
 message ShardOffset {
   oneof offset {
-    SpecialOffset SpecialOffset = 1;
+    SpecialOffset specialOffset = 1;
     RecordId recordOffset = 2;
   }
 }
