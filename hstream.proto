@@ -227,7 +227,7 @@ message BatchedRecord {
   // in the current batch. This field allows the server to build
   // the RecordId correctly without decompression after reading
   // the data from the store.
-  uint64 batchSize = 3;
+  uint32 batchSize = 3;
   bytes payload = 4; // serialized BatchHStreamRecords
 }
 
