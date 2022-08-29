@@ -214,6 +214,7 @@ message Stream {
 enum CompressionType {
   None = 0;
   Gzip = 1;
+  Zstd = 2;
 }
 
 message BatchedRecord {
