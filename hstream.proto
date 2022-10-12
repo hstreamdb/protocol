@@ -431,6 +431,7 @@ message DescribeClusterResponse {
   string serverVersion = 2;
   repeated ServerNode serverNodes = 3;
   repeated ServerNodeStatus serverNodesStatus = 4;
+  uint64 clusterUpTime = 5;
 }
 
 message ServerNode {
