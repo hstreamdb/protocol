@@ -81,6 +81,7 @@ service HStreamApi {
   rpc ExecuteQuery(CommandQuery) returns (CommandQueryResponse);
 
   // query related apis
+  rpc CreateQuery(CreateQueryRequest) returns (Query) {}
   rpc ListQueries(ListQueriesRequest) returns (ListQueriesResponse) {}
   rpc GetQuery(GetQueryRequest) returns (Query) {}
   rpc TerminateQueries(TerminateQueriesRequest)
@@ -316,6 +317,8 @@ message TerminateQueriesRequest {
 message TerminateQueriesResponse { repeated string queryId = 1; }
 
 // Query realated Request and Response
+message CreateQueryRequest { string sql = 1; }
+
 message ListQueriesRequest {}
 
 message ListQueriesResponse { repeated Query queries = 1; }
