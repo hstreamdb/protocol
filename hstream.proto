@@ -334,11 +334,19 @@ enum TaskStatusPB {
   TASK_TERMINATED = 5;
 }
 
-message Query {
+message QueryInfo {
   string id = 1;
+  int64  createdTime = 2;
+  string sql = 3;
+  oneof  type {
+    string stream = 4;
+    string view = 5;
+  }
+}
+
+message Query {
+  QueryInfo info = 1;
   TaskStatusPB status = 2;
-  int64 createdTime = 3;
-  string queryText = 4;
 }
 
 message DeleteQueryRequest { string id = 1; }
