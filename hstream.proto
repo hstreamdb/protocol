@@ -198,7 +198,7 @@ message DeleteStreamRequest {
 
 message ListStreamsResponse { repeated Stream streams = 1; }
 
-// TODO：Add options for filtering or max_size
+// TODO: Add options for filtering or max_size
 message ListStreamsRequest {}
 
 message ListSubscriptionsRequest {}
