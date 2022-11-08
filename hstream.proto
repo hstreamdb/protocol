@@ -330,8 +330,9 @@ enum TaskStatusPB {
   TASK_CREATED = 1;
   TASK_RUNNING = 2;
   TASK_CREATION_ABORT = 3;
-  TASK_CONNECTION_ABORT = 4;
+  TASK_ABORT = 4;
   TASK_TERMINATED = 5;
+  TASK_UNKNOWN = 6;
 }
 
 message Query {
