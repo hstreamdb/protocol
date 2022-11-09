@@ -57,6 +57,7 @@ service HStreamApi {
   // Cluster APIs
   rpc DescribeCluster(google.protobuf.Empty) returns (DescribeClusterResponse) {
   }
+  rpc LookupResource(LookupResourceRequest) returns (ServerNode) {}
 
   // Admin Command
   rpc SendAdminCommand(AdminCommandRequest) returns (AdminCommandResponse);
@@ -482,4 +483,19 @@ message LookupShardReaderRequest { string readerId = 1; }
 message LookupShardReaderResponse {
   string readerId = 1;
   ServerNode serverNode = 2;
+}
+
+enum ResourceType {
+  ResStream = 0;
+  ResSubscription = 1;
+  ResShard = 2;
+  ResShardReader = 3;
+  ResConnector = 4;
+  ResQuery = 5;
+  ResView = 6;
+}
+
+message LookupResourceRequest {
+  ResourceType resType = 1;
+  string resId = 2;
 }
