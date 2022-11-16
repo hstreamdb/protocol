@@ -167,6 +167,7 @@ message Subscription {
   int32 ackTimeoutSeconds = 3;
   int32 maxUnackedRecords = 4;
   SpecialOffset offset = 5;
+  google.protobuf.Timestamp creationTime = 6;
 }
 
 message DeleteSubscriptionRequest {
@@ -211,6 +212,7 @@ message Stream {
   uint32 replicationFactor = 2;
   uint32 backlogDuration = 3;
   uint32 shardCount = 4;
+  google.protobuf.Timestamp creationTime = 5;
 }
 
 enum CompressionType {
