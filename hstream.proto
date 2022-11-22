@@ -24,7 +24,7 @@ service HStreamApi {
   rpc Echo(EchoRequest) returns (EchoResponse);
 
   // Stream APIs
-  rpc CreateStream(Stream) returns (Stream) {}
+  rpc CreateStream(CreateStreamRequest) returns (Stream) {}
   rpc DeleteStream(DeleteStreamRequest) returns (google.protobuf.Empty) {}
   rpc ListStreams(ListStreamsRequest) returns (ListStreamsResponse) {}
   rpc LookupShard(LookupShardRequest) returns (LookupShardResponse) {}
@@ -42,7 +42,7 @@ service HStreamApi {
       returns (google.protobuf.Empty) {}
 
   // Subscribe APIs
-  rpc CreateSubscription(Subscription) returns (Subscription) {}
+  rpc CreateSubscription(CreateSubscriptionRequest) returns (Subscription) {}
   rpc ListSubscriptions(ListSubscriptionsRequest)
       returns (ListSubscriptionsResponse) {}
   rpc CheckSubscriptionExist(CheckSubscriptionExistRequest)
@@ -71,15 +71,6 @@ service HStreamApi {
       returns (PerStreamTimeSeriesStatsResponse);
   rpc PerStreamTimeSeriesStatsAll(PerStreamTimeSeriesStatsAllRequest)
       returns (PerStreamTimeSeriesStatsAllResponse);
-
-  // only for push query
-  // e.g., select (with emit changes)
-  rpc ExecutePushQuery(CommandPushQuery)
-      returns (stream google.protobuf.Struct);
-
-  // for execute any sql stmt except push query,
-  // e.g., insert, create, show/list, select(without emit changes) ...
-  rpc ExecuteQuery(CommandQuery) returns (CommandQueryResponse);
 
   // query related apis
   rpc CreateQuery(CreateQueryRequest) returns (Query) {}
