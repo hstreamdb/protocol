@@ -26,6 +26,7 @@ service HStreamApi {
   // Stream APIs
   rpc CreateStream(Stream) returns (Stream) {}
   rpc DeleteStream(DeleteStreamRequest) returns (google.protobuf.Empty) {}
+  rpc GetStream(GetStreamRequest) returns (GetStreamResponse) {}
   rpc ListStreams(ListStreamsRequest) returns (ListStreamsResponse) {}
   rpc LookupShard(LookupShardRequest) returns (LookupShardResponse) {}
   rpc Append(AppendRequest) returns (AppendResponse) {}
@@ -43,6 +44,8 @@ service HStreamApi {
 
   // Subscribe APIs
   rpc CreateSubscription(Subscription) returns (Subscription) {}
+  rpc GetSubscription(GetSubscriptionRequest)
+      returns (GetSubscriptionResponse) {}
   rpc ListSubscriptions(ListSubscriptionsRequest)
       returns (ListSubscriptionsResponse) {}
   rpc CheckSubscriptionExist(CheckSubscriptionExistRequest)
@@ -149,6 +152,14 @@ message CommandQuery { string stmt_text = 1; }
 
 message CommandQueryResponse { repeated google.protobuf.Struct result_set = 1; }
 
+message GetStreamRequest { string name = 1; }
+
+message GetStreamResponse {
+  Stream stream = 1;
+  repeated Shard shards = 2;
+  repeated Subscription subscriptions = 3;
+}
+
 message AppendRequest {
   string streamName = 1;
   uint64 shardId = 2;
@@ -169,6 +180,10 @@ message Subscription {
   SpecialOffset offset = 5;
   google.protobuf.Timestamp creationTime = 6;
 }
+
+message GetSubscriptionRequest { string id = 1; }
+
+message GetSubscriptionResponse { Subscription subscription = 1; }
 
 message DeleteSubscriptionRequest {
   string subscriptionId = 1;
