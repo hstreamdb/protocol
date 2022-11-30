@@ -154,11 +154,7 @@ message CommandQueryResponse { repeated google.protobuf.Struct result_set = 1; }
 
 message GetStreamRequest { string name = 1; }
 
-message GetStreamResponse {
-  Stream stream = 1;
-  repeated Shard shards = 2;
-  repeated Subscription subscriptions = 3;
-}
+message GetStreamResponse { Stream stream = 1; }
 
 message AppendRequest {
   string streamName = 1;
