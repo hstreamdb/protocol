@@ -48,6 +48,7 @@ service HStreamApi {
       returns (GetSubscriptionResponse) {}
   rpc ListSubscriptions(ListSubscriptionsRequest)
       returns (ListSubscriptionsResponse) {}
+  rpc ListConsumers(ListConsumersRequest) returns (ListConsumersResponse) {}
   rpc CheckSubscriptionExist(CheckSubscriptionExistRequest)
       returns (CheckSubscriptionExistResponse) {}
   rpc DeleteSubscription(DeleteSubscriptionRequest)
