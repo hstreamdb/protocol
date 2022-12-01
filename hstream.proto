@@ -453,7 +453,7 @@ message DescribeClusterResponse {
 }
 
 message ServerNode {
-  string id = 1;
+  uint32 id = 1;
   string host = 2;
   uint32 port = 3;
 }
