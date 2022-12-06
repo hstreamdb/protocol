@@ -48,6 +48,7 @@ service HStreamApi {
       returns (GetSubscriptionResponse) {}
   rpc ListSubscriptions(ListSubscriptionsRequest)
       returns (ListSubscriptionsResponse) {}
+  rpc ListConsumers(ListConsumersRequest) returns (ListConsumersResponse) {}
   rpc CheckSubscriptionExist(CheckSubscriptionExistRequest)
       returns (CheckSubscriptionExistResponse) {}
   rpc DeleteSubscription(DeleteSubscriptionRequest)
@@ -218,6 +219,9 @@ message ListSubscriptionsRequest {}
 
 message ListSubscriptionsResponse { repeated Subscription subscription = 1; }
 
+message ListConsumersRequest { string subscriptionId = 1; }
+message ListConsumersResponse { repeated Consumer consumers = 1; }
+
 message Stream {
   string streamName = 1;
   uint32 replicationFactor = 2;
@@ -348,6 +352,8 @@ enum TaskStatusPB {
   TASK_TERMINATED = 5;
   TASK_UNKNOWN = 6;
 }
+
+message Consumer { string name = 1; }
 
 message Query {
   string id = 1;
