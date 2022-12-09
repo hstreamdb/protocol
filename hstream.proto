@@ -356,6 +356,7 @@ enum TaskStatusPB {
 message Consumer {
   string name = 1;
   string uri = 2;
+  string agent = 3;
 }
 
 message Query {
