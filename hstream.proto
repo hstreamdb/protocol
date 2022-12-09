@@ -353,7 +353,10 @@ enum TaskStatusPB {
   TASK_UNKNOWN = 6;
 }
 
-message Consumer { string name = 1; }
+message Consumer {
+  string name = 1;
+  string uri = 2;
+}
 
 message Query {
   string id = 1;
