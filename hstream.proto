@@ -38,6 +38,8 @@ service HStreamApi {
       returns (CreateShardReaderResponse) {}
   rpc LookupShardReader(LookupShardReaderRequest)
       returns (LookupShardReaderResponse) {}
+  rpc ListShardReaders(ListShardReadersRequest)
+      returns (ListShardReadersResponse) {}
   rpc ReadShard(ReadShardRequest) returns (ReadShardResponse) {}
   rpc DeleteShardReader(DeleteShardReaderRequest)
       returns (google.protobuf.Empty) {}
@@ -62,6 +64,7 @@ service HStreamApi {
   rpc DescribeCluster(google.protobuf.Empty) returns (DescribeClusterResponse) {
   }
   rpc LookupResource(LookupResourceRequest) returns (ServerNode) {}
+  rpc GetOverview(GetOverviewRequest) returns (GetOverviewResponse) {}
 
   // Admin Command
   rpc SendAdminCommand(AdminCommandRequest) returns (AdminCommandResponse);
@@ -108,9 +111,6 @@ service HStreamApi {
   rpc ListViews(ListViewsRequest) returns (ListViewsResponse) {}
   rpc GetView(GetViewRequest) returns (View) {}
   rpc DeleteView(DeleteViewRequest) returns (google.protobuf.Empty) {}
-
-  // overvew related apis
-  // rpc GetOverview(GetOverviewRequest) returns (GetOverviewResponse) {}
 
   // FIXME: (store)node related apis
   rpc ListNodes(ListNodesRequest) returns (ListNodesResponse) {}
@@ -331,7 +331,12 @@ message ReadShardRequest {
   uint32 maxRecords = 2;
 }
 
+message ListShardReadersRequest {}
+message ListShardReadersResponse { repeated ShardReader shardReaders = 1; }
+
 message DeleteShardReaderRequest { string readerId = 1; }
+
+message ShardReader { string id = 1; }
 
 message ReadShardResponse { repeated ReceivedRecord receivedRecords = 1; }
 
@@ -417,6 +422,23 @@ message View {
   int64 createdTime = 3;
   string sql = 4;
   repeated string schema = 5;
+}
+
+// Overview related
+message GetOverviewRequest {}
+
+message GetOverviewResponse {
+  string protocolVersion = 1;
+  string serverVersion = 2;
+  repeated ServerNodeStatus serverNodesStatus = 3;
+  uint64 clusterUpTime = 4;
+  repeated Stream allStreams = 5;
+  repeated Subscription allSubscriptions = 6;
+  repeated Shard allShards = 7;
+  repeated ShardReader allShardReaders = 8;
+  repeated Connector allConnectors = 9;
+  repeated View allViews = 10;
+  repeated Query allQueries = 11;
 }
 
 // Nodes related Request and Response
