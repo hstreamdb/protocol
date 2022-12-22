@@ -28,6 +28,8 @@ service HStreamApi {
   rpc DeleteStream(DeleteStreamRequest) returns (google.protobuf.Empty) {}
   rpc GetStream(GetStreamRequest) returns (GetStreamResponse) {}
   rpc ListStreams(ListStreamsRequest) returns (ListStreamsResponse) {}
+  rpc ListStreamsWithPrefix(ListStreamsWithPrefixRequest)
+      returns (ListStreamsResponse) {}
   rpc LookupShard(LookupShardRequest) returns (LookupShardResponse) {}
   rpc Append(AppendRequest) returns (AppendResponse) {}
 
@@ -47,6 +49,8 @@ service HStreamApi {
   rpc GetSubscription(GetSubscriptionRequest)
       returns (GetSubscriptionResponse) {}
   rpc ListSubscriptions(ListSubscriptionsRequest)
+      returns (ListSubscriptionsResponse) {}
+  rpc ListSubscriptionsWithPrefix(ListSubscriptionsWithPrefixRequest)
       returns (ListSubscriptionsResponse) {}
   rpc ListConsumers(ListConsumersRequest) returns (ListConsumersResponse) {}
   rpc CheckSubscriptionExist(CheckSubscriptionExistRequest)
@@ -222,8 +226,10 @@ message ListStreamsResponse { repeated Stream streams = 1; }
 
 // TODO: Add options for filtering or max_size
 message ListStreamsRequest {}
+message ListStreamsWithPrefixRequest { string prefix = 1; }
 
 message ListSubscriptionsRequest {}
+message ListSubscriptionsWithPrefixRequest { string prefix = 1; }
 
 message ListSubscriptionsResponse { repeated Subscription subscription = 1; }
 
