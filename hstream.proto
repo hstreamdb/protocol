@@ -79,6 +79,9 @@ service HStreamApi {
       returns (PerStreamTimeSeriesStatsResponse);
   rpc PerStreamTimeSeriesStatsAll(PerStreamTimeSeriesStatsAllRequest)
       returns (PerStreamTimeSeriesStatsAllResponse);
+  rpc GetStreamStats(GetStreamStatsRequest) returns (GetStreamStatsResponse);
+  rpc GetSubscriptionStats(GetSubscriptionStatsRequest)
+      returns (GetSubscriptionStatsResponse);
 
   // only for push query
   // e.g., select (with emit changes)
@@ -536,3 +539,27 @@ message LookupResourceRequest {
   ResourceType resType = 1;
   string resId = 2;
 }
+
+enum StreamStats {
+  AppendInBytes = 0;
+  AppendInRecords = 1;
+  TotalAppend = 2;
+  FailedAppend = 3;
+}
+
+message GetStreamStatsRequest { StreamStats statsType = 1; }
+
+message GetStreamStatsResponse { map<string, int64> statValues = 1; }
+
+enum SubscriptionStats {
+  DeliveryInBytes = 0;
+  DeliveryInRecords = 1;
+  AckReceived = 2;
+  ResendRecords = 3;
+  MessageRequestCount = 4;
+  MessageResponseCount = 5;
+}
+
+message GetSubscriptionStatsRequest { SubscriptionStats statsType = 1; }
+
+message GetSubscriptionStatsResponse { map<string, int64> statValues = 1; }
