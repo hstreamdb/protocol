@@ -41,6 +41,8 @@ service HStreamApi {
   rpc LookupShardReader(LookupShardReaderRequest)
       returns (LookupShardReaderResponse) {}
   rpc ReadShard(ReadShardRequest) returns (ReadShardResponse) {}
+  rpc ListShardReaders(ListShardReadersRequest)
+      returns (ListShardReadersResponse) {}
   rpc DeleteShardReader(DeleteShardReaderRequest)
       returns (google.protobuf.Empty) {}
 
@@ -343,6 +345,9 @@ message ReadShardRequest {
 message DeleteShardReaderRequest { string readerId = 1; }
 
 message ReadShardResponse { repeated ReceivedRecord receivedRecords = 1; }
+
+message ListShardReadersRequest {}
+message ListShardReadersResponse { repeated string readerId = 1; }
 
 message TerminateQueriesRequest {
   repeated string queryId = 1;
