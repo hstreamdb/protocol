@@ -118,12 +118,8 @@ service HStreamApi {
   rpc GetView(GetViewRequest) returns (View) {}
   rpc DeleteView(DeleteViewRequest) returns (google.protobuf.Empty) {}
 
-  // overvew related apis
+  // overview related apis
   // rpc GetOverview(GetOverviewRequest) returns (GetOverviewResponse) {}
-
-  // FIXME: (store)node related apis
-  rpc ListNodes(ListNodesRequest) returns (ListNodesResponse) {}
-  rpc GetNode(GetNodeRequest) returns (Node) {}
 }
 
 enum SpecialOffset {
@@ -431,20 +427,6 @@ message View {
   int64 createdTime = 3;
   string sql = 4;
   repeated string schema = 5;
-}
-
-// Nodes related Request and Response
-message GetNodeRequest { int32 id = 1; }
-
-message ListNodesRequest {}
-
-message ListNodesResponse { repeated Node nodes = 1; }
-
-message Node {
-  int32 id = 1;
-  repeated int32 roles = 2;
-  string address = 3;
-  string status = 4;
 }
 
 message StatsIntervalVals { repeated int32 intervals = 1; }
