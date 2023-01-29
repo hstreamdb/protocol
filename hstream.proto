@@ -541,16 +541,26 @@ enum SubscriptionStats {
   MessageResponseCount = 5;
 }
 
-message StatsType {
+message StatType {
   oneof stat {
     StreamStats streamStat = 1;
     SubscriptionStats subStat = 2;
   }
 }
 
-message GetStatsRequest { StatsType statsType = 1; }
+message StatValue {
+  StatType statType = 1;
+  map<string, int64> statValues = 2;
+}
+
+message StatError {
+  StatType statType = 1;
+  string message = 2;
+}
+
+message GetStatsRequest { repeated StatType statsType = 1; }
 
 message GetStatsResponse {
-  StatsType statsType = 1;
-  map<string, int64> statValues = 2;
+  repeated StatValue statsValues = 1;
+  repeated StatError errors = 2;
 }
