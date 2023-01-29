@@ -528,17 +528,19 @@ message LookupResourceRequest {
 enum StreamStats {
   AppendInBytes = 0;
   AppendInRecords = 1;
-  TotalAppend = 2;
-  FailedAppend = 3;
+  AppendTotal = 2;
+  AppendFailed = 3;
 }
 
 enum SubscriptionStats {
-  DeliveryInBytes = 0;
-  DeliveryInRecords = 1;
-  AckReceived = 2;
+  SendOutBytes = 0;
+  SendOutRecords = 1;
+  SendOutRecordsFailed = 2;
   ResendRecords = 3;
-  MessageRequestCount = 4;
-  MessageResponseCount = 5;
+  ResendRecordsFailed = 4;
+  ReceivedAcks = 5;
+  RequestMessages = 6;
+  ResponseMessages = 7;
 }
 
 message StatType {
@@ -558,7 +560,7 @@ message StatError {
   string message = 2;
 }
 
-message GetStatsRequest { repeated StatType statsType = 1; }
+message GetStatsRequest { repeated StatType stats = 1; }
 
 message GetStatsResponse {
   repeated StatValue statsValues = 1;
