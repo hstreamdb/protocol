@@ -145,8 +145,6 @@ message CommandConnected {
   int32 protocol_version = 2;
 }
 
-message CommandPushQuery { string query_text = 1; }
-
 message CommandQuery { string stmt_text = 1; }
 
 message CommandQueryResponse { repeated google.protobuf.Struct result_set = 1; }
