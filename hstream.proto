@@ -83,11 +83,6 @@ service HStreamApi {
       returns (PerStreamTimeSeriesStatsAllResponse);
   rpc GetStats(GetStatsRequest) returns (GetStatsResponse);
 
-  // only for push query
-  // e.g., select (with emit changes)
-  rpc ExecutePushQuery(CommandPushQuery)
-      returns (stream google.protobuf.Struct);
-
   // for execute any sql stmt except push query,
   // e.g., insert, create, show/list, select(without emit changes) ...
   rpc ExecuteQuery(CommandQuery) returns (CommandQueryResponse);
