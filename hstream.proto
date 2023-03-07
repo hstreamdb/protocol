@@ -562,13 +562,13 @@ message GetStatsResponse {
 
 // ErrorCodes
 enum ErrorCode {
-    // 10xx -> internal error
+    // 0xx -> internal error
     InternalError = 0;
 
-    // 11xx -> Proxy Errors
+    // 1xx -> Proxy Errors
 
 
-    // 12xx -> Stream Errors
+    // 2xx -> Stream Errors
     StreamNotFound = 200;
     StreamExists = 201;
     StreamFoundSubscription = 202;
@@ -578,19 +578,19 @@ enum ErrorCode {
     StreamEmptyBatchedRecord = 206;
     StreamInvalidRecordSize = 207;
     
-    // 13xx -> Subscription Errors
+    // 3xx -> Subscription Errors
     SubscriptionNotFound = 300;
     SubscriptionExists = 301;
     SubscriptionCreationOnEmptyStream = 302;
     SubscriptionInvalidOffset = 303;
 
-    // 14xx -> Query Errors
+    // 4xx -> Query Errors
     QueryNotFound = 400;
 
-    // 15xx -> View Errors
+    // 5xx -> View Errors
     ViewNotFound = 500;
 
-    // 16xx -> IO
+    // 6xx -> IO
 
-    // 17xx -> Stats
+    // 7xx -> Stats
 }
