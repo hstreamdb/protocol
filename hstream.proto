@@ -559,3 +559,38 @@ message GetStatsResponse {
   repeated StatValue statsValues = 1;
   repeated StatError errors = 2;
 }
+
+// ErrorCodes
+enum ErrorCode {
+    // 10xx -> internal error
+    InternalError = 0;
+
+    // 11xx -> Proxy Errors
+
+
+    // 12xx -> Stream Errors
+    StreamNotFound = 200;
+    StreamExists = 201;
+    StreamFoundSubscription = 202;
+    StreamInvalidReplicaFactor = 203;
+    StreamInvalidObjectIdentifier = 204;
+    StreamInvalidShardCount = 205;
+    StreamEmptyBatchedRecord = 206;
+    StreamInvalidRecordSize = 207;
+    
+    // 13xx -> Subscription Errors
+    SubscriptionNotFound = 300;
+    SubscriptionExists = 301;
+    SubscriptionCreationOnEmptyStream = 302;
+    SubscriptionInvalidOffset = 303;
+
+    // 14xx -> Query Errors
+    QueryNotFound = 400;
+
+    // 15xx -> View Errors
+    ViewNotFound = 500;
+
+    // 16xx -> IO
+
+    // 17xx -> Stats
+}
