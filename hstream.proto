@@ -562,35 +562,34 @@ message GetStatsResponse {
 
 // ErrorCodes
 enum ErrorCode {
-    // 0xx -> internal error
-    InternalError = 0;
+  // 0xx -> internal error
+  InternalError = 0;
 
-    // 1xx -> Proxy Errors
+  // 1xx -> Proxy Errors
 
+  // 2xx -> Stream Errors
+  StreamNotFound = 200;
+  StreamExists = 201;
+  StreamFoundSubscription = 202;
+  StreamInvalidReplicaFactor = 203;
+  StreamInvalidObjectIdentifier = 204;
+  StreamInvalidShardCount = 205;
+  StreamEmptyBatchedRecord = 206;
+  StreamInvalidRecordSize = 207;
 
-    // 2xx -> Stream Errors
-    StreamNotFound = 200;
-    StreamExists = 201;
-    StreamFoundSubscription = 202;
-    StreamInvalidReplicaFactor = 203;
-    StreamInvalidObjectIdentifier = 204;
-    StreamInvalidShardCount = 205;
-    StreamEmptyBatchedRecord = 206;
-    StreamInvalidRecordSize = 207;
-    
-    // 3xx -> Subscription Errors
-    SubscriptionNotFound = 300;
-    SubscriptionExists = 301;
-    SubscriptionCreationOnEmptyStream = 302;
-    SubscriptionInvalidOffset = 303;
+  // 3xx -> Subscription Errors
+  SubscriptionNotFound = 300;
+  SubscriptionExists = 301;
+  SubscriptionCreationOnEmptyStream = 302;
+  SubscriptionInvalidOffset = 303;
 
-    // 4xx -> Query Errors
-    QueryNotFound = 400;
+  // 4xx -> Query Errors
+  QueryNotFound = 400;
 
-    // 5xx -> View Errors
-    ViewNotFound = 500;
+  // 5xx -> View Errors
+  ViewNotFound = 500;
 
-    // 6xx -> IO
+  // 6xx -> IO
 
-    // 7xx -> Stats
+  // 7xx -> Stats
 }
