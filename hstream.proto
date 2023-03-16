@@ -89,6 +89,8 @@ service HStreamApi {
 
   // query related apis
   rpc CreateQuery(CreateQueryRequest) returns (Query) {}
+  rpc CreateQueryWithNamespace(CreateQueryWithNamespaceRequest)
+      returns (Query) {}
   rpc ListQueries(ListQueriesRequest) returns (ListQueriesResponse) {}
   rpc GetQuery(GetQueryRequest) returns (Query) {}
   rpc TerminateQueries(TerminateQueriesRequest)
@@ -347,6 +349,12 @@ message TerminateQueriesResponse { repeated string queryId = 1; }
 message CreateQueryRequest {
   string sql = 1;
   string queryName = 2;
+}
+
+message CreateQueryWithNamespaceRequest {
+  string sql = 1;
+  string queryName = 2;
+  string namespace = 3;
 }
 
 message ListQueriesRequest {}
