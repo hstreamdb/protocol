@@ -376,6 +376,8 @@ message Query {
   TaskStatusPB status = 2;
   int64 createdTime = 3;
   string queryText = 4;
+  repeated string sources = 5;
+  string sink = 6;
 }
 
 message DeleteQueryRequest { string id = 1; }
