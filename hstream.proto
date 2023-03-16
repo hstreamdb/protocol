@@ -344,7 +344,10 @@ message TerminateQueriesRequest {
 message TerminateQueriesResponse { repeated string queryId = 1; }
 
 // Query realated Request and Response
-message CreateQueryRequest { string sql = 1; }
+message CreateQueryRequest {
+  string sql = 1;
+  string queryName = 2;
+}
 
 message ListQueriesRequest {}
 
