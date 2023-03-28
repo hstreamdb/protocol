@@ -106,8 +106,6 @@ service HStreamApi {
   rpc DeleteConnector(DeleteConnectorRequest) returns (google.protobuf.Empty) {}
   rpc PauseConnector(PauseConnectorRequest) returns (google.protobuf.Empty) {}
   rpc ResumeConnector(ResumeConnectorRequest) returns (google.protobuf.Empty) {}
-  rpc LookupConnector(LookupConnectorRequest)
-      returns (LookupConnectorResponse) {}
 
   // view related apis
   rpc ListViews(ListViewsRequest) returns (ListViewsResponse) {}
@@ -398,7 +396,17 @@ message RestartQueryRequest { string id = 1; }
 message RestartQueryResponse { bool success = 1; }
 
 // Connector Related Request and Response
-message CreateConnectorRequest { string sql = 1; }
+message CreateConnectorRequest {
+  string name = 1;
+  string type = 2;
+  string target = 3;
+  string config = 4;
+}
+
+message CreateConnectorWithNamespaceRequest {
+  string sql = 1;
+  string namespace = 2;
+}
 
 message ListConnectorsRequest {}
 
@@ -509,13 +517,6 @@ message LookupSubscriptionRequest { string subscriptionId = 1; }
 
 message LookupSubscriptionResponse {
   string subscriptionId = 1;
-  ServerNode serverNode = 2;
-}
-
-message LookupConnectorRequest { string name = 1; }
-
-message LookupConnectorResponse {
-  string name = 1;
   ServerNode serverNode = 2;
 }
 
