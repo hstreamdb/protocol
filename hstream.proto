@@ -404,11 +404,6 @@ message CreateConnectorRequest {
   string config = 4;
 }
 
-message CreateConnectorWithNamespaceRequest {
-  string sql = 1;
-  string namespace = 2;
-}
-
 message ListConnectorsRequest {}
 
 message ListConnectorsResponse { repeated Connector connectors = 1; }
