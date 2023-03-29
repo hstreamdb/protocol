@@ -624,7 +624,8 @@ enum ErrorCode {
 
   // 6xx -> IO
   ConnectorNotFound = 600;
-  ConnectorInvalidType = 601;
+  ConnectorExists = 601;
+  ConnectorInvalidType = 602;
 
   // 7xx -> Stats
 }
