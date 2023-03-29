@@ -102,7 +102,8 @@ service HStreamApi {
   rpc CreateConnector(CreateConnectorRequest) returns (Connector) {}
   rpc ListConnectors(ListConnectorsRequest) returns (ListConnectorsResponse) {}
   rpc GetConnector(GetConnectorRequest) returns (Connector) {}
-  rpc GetConnectorSpec(GetConnectorSpecRequest) returns (GetConnectorSpecResponse) {}
+  rpc GetConnectorSpec(GetConnectorSpecRequest)
+      returns (GetConnectorSpecResponse) {}
   rpc DeleteConnector(DeleteConnectorRequest) returns (google.protobuf.Empty) {}
   rpc PauseConnector(PauseConnectorRequest) returns (google.protobuf.Empty) {}
   rpc ResumeConnector(ResumeConnectorRequest) returns (google.protobuf.Empty) {}
@@ -414,23 +415,23 @@ message ListConnectorsResponse { repeated Connector connectors = 1; }
 
 message GetConnectorRequest { string name = 1; }
 
-message GetConnectorSpecRequest { 
-    // SOURCE or SINK
-    string type = 1;
-    // e.g. Mysql, Postgresql, etc.
-    string target = 2;
+message GetConnectorSpecRequest {
+  // SOURCE or SINK
+  string type = 1;
+  // e.g. mysql, postgresql, etc.
+  string target = 2;
 }
 
 message GetConnectorSpecResponse { string spec = 1; }
 
 message Connector {
-    string name = 1;
-    string type = 2;
-    string target = 3;
-    google.protobuf.Timestamp creationTime = 4;
-    string status = 5;
-    // Optional, only available for GetConnector
-    string cnofig = 6;
+  string name = 1;
+  string type = 2;
+  string target = 3;
+  google.protobuf.Timestamp creationTime = 4;
+  string status = 5;
+  // Optional, only available for GetConnector
+  string cnofig = 6;
 }
 
 message DeleteConnectorRequest { string name = 1; }
