@@ -112,6 +112,8 @@ service HStreamApi {
   rpc ListViews(ListViewsRequest) returns (ListViewsResponse) {}
   rpc GetView(GetViewRequest) returns (View) {}
   rpc DeleteView(DeleteViewRequest) returns (google.protobuf.Empty) {}
+  rpc ExecuteViewQuery(ExecuteViewQueryRequest)
+      returns (ExecuteViewQueryResponse) {}
 
   // overview related apis
   // rpc GetOverview(GetOverviewRequest) returns (GetOverviewResponse) {}
@@ -455,6 +457,9 @@ message View {
   repeated string schema = 5;
   string queryName = 6;
 }
+
+message ExecuteViewQueryResponse { ReceivedRecord receivedRecords = 1; }
+message ExecuteViewQueryRequest { string sql = 1; }
 
 message StatsIntervalVals { repeated int32 intervals = 1; }
 
