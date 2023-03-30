@@ -453,6 +453,7 @@ message View {
   int64 createdTime = 3;
   string sql = 4;
   repeated string schema = 5;
+  string queryName = 6;
 }
 
 message StatsIntervalVals { repeated int32 intervals = 1; }
