@@ -458,7 +458,9 @@ message View {
   string queryName = 6;
 }
 
-message ExecuteViewQueryResponse { ReceivedRecord receivedRecords = 1; }
+message ExecuteViewQueryResponse {
+  repeated google.protobuf.Struct results = 1;
+}
 message ExecuteViewQueryRequest { string sql = 1; }
 
 message StatsIntervalVals { repeated int32 intervals = 1; }
