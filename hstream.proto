@@ -96,7 +96,8 @@ service HStreamApi {
   rpc TerminateQueries(TerminateQueriesRequest)
       returns (TerminateQueriesResponse) {}
   rpc DeleteQuery(DeleteQueryRequest) returns (google.protobuf.Empty) {}
-  rpc RestartQuery(RestartQueryRequest) returns (google.protobuf.Empty) {}
+  rpc ResumeQuery(ResumeQueryRequest) returns (google.protobuf.Empty) {}
+  rpc PauseQuery(PauseQueryRequest) returns (google.protobuf.Empty) {}
 
   // connector related apis
   rpc CreateConnector(CreateConnectorRequest) returns (Connector) {}
@@ -367,12 +368,11 @@ message GetQueryRequest { string id = 1; }
 
 enum TaskStatusPB {
   TASK_CREATING = 0;
-  TASK_CREATED = 1;
-  TASK_RUNNING = 2;
-  TASK_CREATION_ABORT = 3;
-  TASK_ABORT = 4;
-  TASK_TERMINATED = 5;
-  TASK_UNKNOWN = 6;
+  TASK_RUNNING = 1;
+  TASK_ABORTED = 2;
+  TASK_PAUSED = 3;
+  TASK_RESUMING = 4;
+  TASK_UNKNOWN = 5;
 }
 
 message Consumer {
@@ -391,12 +391,8 @@ message Query {
 }
 
 message DeleteQueryRequest { string id = 1; }
-
-message DeleteQueryResponse { bool success = 1; }
-
-message RestartQueryRequest { string id = 1; }
-
-message RestartQueryResponse { bool success = 1; }
+message ResumeQueryRequest { string id = 1; }
+message PauseQueryRequest { string id = 1; }
 
 // Connector Related Request and Response
 message CreateConnectorRequest {
