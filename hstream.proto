@@ -395,9 +395,9 @@ message Query {
   string queryText = 4;
   repeated string sources = 5;
   // type:
-  //    CreateStreamAs: sink is result stream name
-  //    CreateViewAs: sink is result view name
-  string sink = 6;
+  //    CreateStreamAs: resultName is result stream name
+  //    CreateViewAs: resultName is result view name
+  string resultName = 6;
   QueryType type = 7;
 }
 
