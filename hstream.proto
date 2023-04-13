@@ -93,8 +93,7 @@ service HStreamApi {
       returns (Query) {}
   rpc ListQueries(ListQueriesRequest) returns (ListQueriesResponse) {}
   rpc GetQuery(GetQueryRequest) returns (Query) {}
-  rpc TerminateQueries(TerminateQueriesRequest)
-      returns (TerminateQueriesResponse) {}
+  rpc TerminateQuery(TerminateQueryRequest) returns (google.protobuf.Empty) {}
   rpc DeleteQuery(DeleteQueryRequest) returns (google.protobuf.Empty) {}
   rpc ResumeQuery(ResumeQueryRequest) returns (google.protobuf.Empty) {}
   rpc PauseQuery(PauseQueryRequest) returns (google.protobuf.Empty) {}
@@ -343,12 +342,7 @@ message ReadShardResponse { repeated ReceivedRecord receivedRecords = 1; }
 message ListShardReadersRequest {}
 message ListShardReadersResponse { repeated string readerId = 1; }
 
-message TerminateQueriesRequest {
-  repeated string queryId = 1;
-  bool all = 2;
-}
-
-message TerminateQueriesResponse { repeated string queryId = 1; }
+message TerminateQueryRequest { string queryId = 1; }
 
 // Query realated Request and Response
 message CreateQueryRequest {
@@ -374,7 +368,8 @@ enum TaskStatusPB {
   TASK_ABORTED = 2;
   TASK_PAUSED = 3;
   TASK_RESUMING = 4;
-  TASK_UNKNOWN = 5;
+  TASK_TERMINATED = 5;
+  TASK_UNKNOWN = 6;
 }
 
 message Consumer {
