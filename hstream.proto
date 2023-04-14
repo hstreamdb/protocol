@@ -574,10 +574,16 @@ enum SubscriptionStats {
   ResponseMessages = 7;
 }
 
+enum ConnectorStats {
+  DeliveredInRecords = 0;
+  DeliveredInBytes = 1;
+}
+
 message StatType {
   oneof stat {
     StreamStats streamStat = 1;
     SubscriptionStats subStat = 2;
+    ConnectorStats connStat = 3;
   }
 }
 
