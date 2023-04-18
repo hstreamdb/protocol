@@ -624,23 +624,41 @@ enum ErrorCode {
   StreamInvalidShardCount = 205;
   StreamEmptyBatchedRecord = 206;
   StreamInvalidRecordSize = 207;
+  StreamShardReaderInvalidObjectIdentifier = 208;
 
   // 3xx -> Subscription Errors
   SubscriptionNotFound = 300;
   SubscriptionExists = 301;
-  SubscriptionCreationOnEmptyStream = 302;
+  SubscriptionCreationOnNonExistentStream = 302;
   SubscriptionInvalidOffset = 303;
+  SubscriptionInvalidObjectIdentifier = 304;
+  SubscriptionFoundActiveConsumers = 305;
 
   // 4xx -> Query Errors
   QueryNotFound = 400;
+  QueryExists = 401;
+  QueryInvalidSQL = 402;
+  QueryFoundAssociatedView = 403;
+  QueryInvalidObjectIdentifier = 404;
+  QueryStillRunning = 405;
+  QueryNotRunning = 406;
+  QueryNotTerminated = 407;
+  QueryAlreadyTerminated = 408;
 
   // 5xx -> View Errors
   ViewNotFound = 500;
+  ViewExists = 501;
+  ViewInvalidSQL = 502;
+  ViewInvalidObjectIdentifier = 503;
 
   // 6xx -> IO
   ConnectorNotFound = 600;
   ConnectorExists = 601;
   ConnectorInvalidType = 602;
+  ConnectorInvalidObjectIdentifier = 603;
 
   // 7xx -> Stats
+
+  // 8xx -> Cluster
+  WrongServer = 800;
 }
