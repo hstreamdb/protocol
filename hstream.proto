@@ -98,7 +98,7 @@ service HStreamApi {
   rpc ResumeQuery(ResumeQueryRequest) returns (google.protobuf.Empty) {}
   rpc PauseQuery(PauseQueryRequest) returns (google.protobuf.Empty) {}
   // parse query sql, return structuralized information
-  rpc parseSql(ParseSqlRequest) returns (ParseSqlResponse) {}
+  rpc ParseSql(ParseSqlRequest) returns (ParseSqlResponse) {}
 
   // connector related apis
   rpc CreateConnector(CreateConnectorRequest) returns (Connector) {}
