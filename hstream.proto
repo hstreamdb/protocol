@@ -97,6 +97,8 @@ service HStreamApi {
   rpc DeleteQuery(DeleteQueryRequest) returns (google.protobuf.Empty) {}
   rpc ResumeQuery(ResumeQueryRequest) returns (google.protobuf.Empty) {}
   rpc PauseQuery(PauseQueryRequest) returns (google.protobuf.Empty) {}
+  // parse query sql, return structuralized information
+  rpc parseSql(ParseSqlRequest) returns (ParseSqlResponse) {}
 
   // connector related apis
   rpc CreateConnector(CreateConnectorRequest) returns (Connector) {}
@@ -399,6 +401,17 @@ message Query {
 message DeleteQueryRequest { string id = 1; }
 message ResumeQueryRequest { string id = 1; }
 message PauseQueryRequest { string id = 1; }
+
+message ParseSqlRequest { string sql = 1; }
+message ParseSqlResponse {
+    oneof sql {
+        ExecuteViewQuerySql evqSql = 1;
+    }
+}
+
+message ExecuteViewQuerySql {
+    string view = 1;
+}
 
 // Connector Related Request and Response
 message CreateConnectorRequest {
