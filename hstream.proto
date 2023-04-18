@@ -104,6 +104,8 @@ service HStreamApi {
   rpc GetConnector(GetConnectorRequest) returns (Connector) {}
   rpc GetConnectorSpec(GetConnectorSpecRequest)
       returns (GetConnectorSpecResponse) {}
+  rpc GetConnectorLogs(GetConnectorLogsRequest)
+      returns (GetConnectorLogsResponse) {}
   rpc DeleteConnector(DeleteConnectorRequest) returns (google.protobuf.Empty) {}
   rpc PauseConnector(PauseConnectorRequest) returns (google.protobuf.Empty) {}
   rpc ResumeConnector(ResumeConnectorRequest) returns (google.protobuf.Empty) {}
@@ -423,6 +425,14 @@ message GetConnectorSpecRequest {
 
 message GetConnectorSpecResponse { string spec = 1; }
 
+message GetConnectorLogsRequest {
+  string name = 1;
+  int32 beginLine = 2;
+  int32 readCount = 3;
+}
+
+message GetConnectorLogsResponse { string logs = 1; }
+
 message Connector {
   string name = 1;
   string type = 2;
@@ -431,6 +441,7 @@ message Connector {
   string status = 5;
   // Optional, only available for GetConnector
   string cnofig = 6;
+  repeated google.protobuf.Struct offsets = 7;
 }
 
 message DeleteConnectorRequest { string name = 1; }
