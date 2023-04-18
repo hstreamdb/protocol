@@ -404,14 +404,10 @@ message PauseQueryRequest { string id = 1; }
 
 message ParseSqlRequest { string sql = 1; }
 message ParseSqlResponse {
-    oneof sql {
-        ExecuteViewQuerySql evqSql = 1;
-    }
+  oneof sql { ExecuteViewQuerySql evqSql = 1; }
 }
 
-message ExecuteViewQuerySql {
-    string view = 1;
-}
+message ExecuteViewQuerySql { string view = 1; }
 
 // Connector Related Request and Response
 message CreateConnectorRequest {
