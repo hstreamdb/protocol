@@ -633,7 +633,6 @@ enum ErrorCode {
   StreamInvalidShardCount = 205;
   StreamEmptyBatchedRecord = 206;
   StreamInvalidRecordSize = 207;
-  StreamShardReaderInvalidObjectIdentifier = 208;
 
   // 3xx -> Subscription Errors
   SubscriptionNotFound = 300;
@@ -670,4 +669,7 @@ enum ErrorCode {
 
   // 8xx -> Cluster
   WrongServer = 800;
+
+  // 9xx -> ShardReader
+  ShardReaderInvalidObjectIdentifier = 900;
 }
