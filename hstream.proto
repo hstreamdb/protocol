@@ -97,6 +97,8 @@ service HStreamApi {
   rpc DeleteQuery(DeleteQueryRequest) returns (google.protobuf.Empty) {}
   rpc ResumeQuery(ResumeQueryRequest) returns (google.protobuf.Empty) {}
   rpc PauseQuery(PauseQueryRequest) returns (google.protobuf.Empty) {}
+  // parse query sql, return structuralized information
+  rpc ParseSql(ParseSqlRequest) returns (ParseSqlResponse) {}
 
   // connector related apis
   rpc CreateConnector(CreateConnectorRequest) returns (Connector) {}
@@ -402,6 +404,13 @@ message DeleteQueryRequest { string id = 1; }
 message ResumeQueryRequest { string id = 1; }
 message PauseQueryRequest { string id = 1; }
 
+message ParseSqlRequest { string sql = 1; }
+message ParseSqlResponse {
+  oneof sql { ExecuteViewQuerySql evqSql = 1; }
+}
+
+message ExecuteViewQuerySql { string view = 1; }
+
 // Connector Related Request and Response
 message CreateConnectorRequest {
   string name = 1;
@@ -639,19 +648,39 @@ enum ErrorCode {
   // 3xx -> Subscription Errors
   SubscriptionNotFound = 300;
   SubscriptionExists = 301;
-  SubscriptionCreationOnEmptyStream = 302;
+  SubscriptionCreationOnNonExistentStream = 302;
   SubscriptionInvalidOffset = 303;
+  SubscriptionInvalidObjectIdentifier = 304;
+  SubscriptionFoundActiveConsumers = 305;
 
   // 4xx -> Query Errors
   QueryNotFound = 400;
+  QueryExists = 401;
+  QueryInvalidSQL = 402;
+  QueryFoundAssociatedView = 403;
+  QueryInvalidObjectIdentifier = 404;
+  QueryStillRunning = 405;
+  QueryNotRunning = 406;
+  QueryNotTerminated = 407;
+  QueryAlreadyTerminated = 408;
 
   // 5xx -> View Errors
   ViewNotFound = 500;
+  ViewExists = 501;
+  ViewInvalidSQL = 502;
+  ViewInvalidObjectIdentifier = 503;
 
   // 6xx -> IO
   ConnectorNotFound = 600;
   ConnectorExists = 601;
   ConnectorInvalidType = 602;
+  ConnectorInvalidObjectIdentifier = 603;
 
   // 7xx -> Stats
+
+  // 8xx -> Cluster
+  WrongServer = 800;
+
+  // 9xx -> ShardReader
+  ShardReaderInvalidObjectIdentifier = 900;
 }
