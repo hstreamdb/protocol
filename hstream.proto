@@ -436,8 +436,8 @@ message GetConnectorSpecResponse { string spec = 1; }
 
 message GetConnectorLogsRequest {
   string name = 1;
-  int32 beginLine = 2;
-  int32 readCount = 3;
+  int32 begin = 2;
+  int32 count = 3;
 }
 
 message GetConnectorLogsResponse { string logs = 1; }
