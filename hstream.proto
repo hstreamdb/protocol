@@ -675,6 +675,9 @@ enum ErrorCode {
   ConnectorExists = 601;
   ConnectorInvalidType = 602;
   ConnectorInvalidObjectIdentifier = 603;
+  ConnectorCheckFailed = 604;
+  ConnectorUnimplemented = 605;
+  ConnectorInvalidStatus = 606;
 
   // 7xx -> Stats
 
