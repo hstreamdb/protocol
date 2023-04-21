@@ -603,11 +603,19 @@ enum ConnectorStats {
   DeliveredInBytes = 1;
 }
 
+enum QueryStats {
+  Alive = 0;
+  Terminated = 1;
+  TotalInputRecords = 2;
+  TotalOutputRecords = 3;
+}
+
 message StatType {
   oneof stat {
     StreamStats streamStat = 1;
     SubscriptionStats subStat = 2;
     ConnectorStats connStat = 3;
+    QueryStats queryStat = 4;
   }
 }
 
