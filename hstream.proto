@@ -621,10 +621,9 @@ enum ConnectorStats {
 }
 
 enum QueryStats {
-  Alive = 0;
-  Terminated = 1;
-  TotalInputRecords = 2;
-  TotalOutputRecords = 3;
+  TotalInputRecords = 0;
+  TotalOutputRecords = 1;
+  TotalExecuteErrors = 2;
 }
 
 message StatType {
