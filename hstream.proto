@@ -41,6 +41,8 @@ service HStreamApi {
   rpc LookupShardReader(LookupShardReaderRequest)
       returns (LookupShardReaderResponse) {}
   rpc ReadShard(ReadShardRequest) returns (ReadShardResponse) {}
+  rpc ReadShardStream(ReadShardStreamRequest)
+      returns (stream ReadShardStreamResponse) {}
   rpc ListShardReaders(ListShardReadersRequest)
       returns (ListShardReadersResponse) {}
   rpc DeleteShardReader(DeleteShardReaderRequest)
@@ -130,10 +132,16 @@ enum SpecialOffset {
   LATEST = 1;
 }
 
+message TimestampOffset {
+  int64 timestampInMs = 1;
+  bool strictAccuracy = 2;
+}
+
 message ShardOffset {
   oneof offset {
     SpecialOffset specialOffset = 1;
     RecordId recordOffset = 2;
+    TimestampOffset timestampOffset = 3;
   }
 }
 
@@ -345,6 +353,15 @@ message ReadShardResponse { repeated ReceivedRecord receivedRecords = 1; }
 
 message ListShardReadersRequest {}
 message ListShardReadersResponse { repeated string readerId = 1; }
+
+message ReadShardStreamRequest {
+  string readerId = 1;
+  uint64 shardId = 2;
+  ShardOffset shardOffset = 3;
+  uint32 timeout = 4;
+}
+
+message ReadShardStreamResponse { repeated ReceivedRecord receivedRecords = 1; }
 
 message TerminateQueryRequest { string queryId = 1; }
 
