@@ -626,12 +626,15 @@ enum QueryStats {
   TotalExecuteErrors = 2;
 }
 
+enum ViewStats { TotalExecuteQueries = 0; }
+
 message StatType {
   oneof stat {
     StreamStats streamStat = 1;
     SubscriptionStats subStat = 2;
     ConnectorStats connStat = 3;
     QueryStats queryStat = 4;
+    ViewStats viewStat = 5;
   }
 }
 
