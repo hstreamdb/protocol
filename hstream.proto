@@ -464,8 +464,7 @@ message Connector {
   string target = 3;
   google.protobuf.Timestamp creationTime = 4;
   string status = 5;
-  // Optional, only available for GetConnector
-  string cnofig = 6;
+  string config = 6;
   repeated google.protobuf.Struct offsets = 7;
 }
 
