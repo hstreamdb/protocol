@@ -414,6 +414,7 @@ message Query {
   //    CreateViewAs: resultName is result view name
   string resultName = 6;
   QueryType type = 7;
+  string refinedAST = 8;
 }
 
 message DeleteQueryRequest { string id = 1; }
