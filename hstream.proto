@@ -123,6 +123,8 @@ service HStreamApi {
   rpc ExecuteViewQueryWithNamespace(ExecuteViewQueryWithNamespaceRequest)
       returns (ExecuteViewQueryResponse) {}
 
+  rpc GetVersion(GetVersionRequest) returns (GetVersionResponse) {}
+
   // overview related apis
   // rpc GetOverview(GetOverviewRequest) returns (GetOverviewResponse) {}
 }
@@ -558,6 +560,15 @@ message ServerNodeStatus {
   ServerNode node = 1;
   NodeState state = 2;
 }
+
+message HStreamVersion {
+  string version = 1;
+  string commit = 2;
+}
+
+message GetVersionRequest {}
+
+message GetVersionResponse { HStreamVersion version = 1; }
 
 message LookupShardRequest { uint64 shardId = 1; }
 
