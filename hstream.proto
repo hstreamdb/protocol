@@ -123,8 +123,6 @@ service HStreamApi {
   rpc ExecuteViewQueryWithNamespace(ExecuteViewQueryWithNamespaceRequest)
       returns (ExecuteViewQueryResponse) {}
 
-  rpc GetVersion(GetVersionRequest) returns (GetVersionResponse) {}
-
   // overview related apis
   // rpc GetOverview(GetOverviewRequest) returns (GetOverviewResponse) {}
 }
@@ -537,16 +535,16 @@ message PerStreamTimeSeriesStatsAllRequest {
 
 message DescribeClusterResponse {
   string protocolVersion = 1;
-  string serverVersion = 2;
-  repeated ServerNode serverNodes = 3;
-  repeated ServerNodeStatus serverNodesStatus = 4;
-  uint64 clusterUpTime = 5;
+  repeated ServerNode serverNodes = 2;
+  repeated ServerNodeStatus serverNodesStatus = 3;
+  uint64 clusterUpTime = 4;
 }
 
 message ServerNode {
   uint32 id = 1;
   string host = 2;
   uint32 port = 3;
+  HStreamVersion version = 4;
 }
 
 enum NodeState {
@@ -565,10 +563,6 @@ message HStreamVersion {
   string version = 1;
   string commit = 2;
 }
-
-message GetVersionRequest {}
-
-message GetVersionResponse { HStreamVersion version = 1; }
 
 message LookupShardRequest { uint64 shardId = 1; }
 
