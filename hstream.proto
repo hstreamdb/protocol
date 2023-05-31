@@ -409,11 +409,13 @@ message Query {
   int64 createdTime = 3;
   string queryText = 4;
   repeated string sources = 5;
+  string resultName = 6;
   // type:
   //    CreateStreamAs: resultName is result stream name
   //    CreateViewAs: resultName is result view name
-  string resultName = 6;
   QueryType type = 7;
+  // Id of the node to execute the query
+  uint32 nodeId = 8;
 }
 
 message DeleteQueryRequest { string id = 1; }
