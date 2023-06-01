@@ -468,6 +468,10 @@ message Connector {
   string status = 5;
   string config = 6;
   repeated google.protobuf.Struct offsets = 7;
+  string taskId = 8;
+  string node = 9;
+  string dockerStatus = 10;
+  string image = 11;
 }
 
 message DeleteConnectorRequest { string name = 1; }
