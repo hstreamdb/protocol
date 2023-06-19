@@ -622,6 +622,7 @@ enum SubscriptionStats {
   ReceivedAcks = 5;
   RequestMessages = 6;
   ResponseMessages = 7;
+  ChecklistSize = 8;
 }
 
 enum ConnectorStats {
