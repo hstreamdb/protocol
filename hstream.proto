@@ -622,6 +622,7 @@ enum SubscriptionStats {
   ReceivedAcks = 5;
   RequestMessages = 6;
   ResponseMessages = 7;
+  ChecklistSize = 8;
 }
 
 enum ConnectorStats {
@@ -637,8 +638,6 @@ enum QueryStats {
 
 enum ViewStats { TotalExecuteQueries = 0; }
 
-enum InternalStats { SubChecklistSize = 0; }
-
 message StatType {
   oneof stat {
     StreamStats streamStat = 1;
@@ -646,7 +645,6 @@ message StatType {
     ConnectorStats connStat = 3;
     QueryStats queryStat = 4;
     ViewStats viewStat = 5;
-    InternalStats internalStat = 6;
   }
 }
 
