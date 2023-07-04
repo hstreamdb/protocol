@@ -32,6 +32,7 @@ service HStreamApi {
       returns (ListStreamsResponse) {}
   rpc LookupShard(LookupShardRequest) returns (LookupShardResponse) {}
   rpc Append(AppendRequest) returns (AppendResponse) {}
+  rpc GetTail(GetTailRequest) returns (GetTailResponse) {}
 
   // Shard APIs
   rpc ListShards(ListShardsRequest) returns (ListShardsResponse) {}
@@ -608,6 +609,10 @@ message LookupResourceRequest {
   ResourceType resType = 1;
   string resId = 2;
 }
+
+message GetTailRequest { string streamName = 1; }
+
+message GetTailResponse { repeated string tailRecordIds = 1; }
 
 enum StreamStats {
   AppendInBytes = 0;
