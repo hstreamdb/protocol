@@ -37,7 +37,6 @@ service HStreamApi {
 
   // Shard APIs
   rpc ListShards(ListShardsRequest) returns (ListShardsResponse) {}
-
   rpc CreateShardReader(CreateShardReaderRequest)
       returns (CreateShardReaderResponse) {}
   rpc LookupShardReader(LookupShardReaderRequest)
@@ -49,6 +48,9 @@ service HStreamApi {
       returns (ListShardReadersResponse) {}
   rpc DeleteShardReader(DeleteShardReaderRequest)
       returns (google.protobuf.Empty) {}
+  rpc ReadStream(ReadStreamRequest) returns (stream ReadStreamResponse) {}
+  rpc ReadSingleShardStream(ReadSingleShardStreamRequest)
+      returns (stream ReadSingleShardStreamResponse) {}
 
   // Subscribe APIs
   rpc CreateSubscription(Subscription) returns (Subscription) {}
@@ -366,6 +368,37 @@ message ReadShardStreamRequest {
 }
 
 message ReadShardStreamResponse { repeated ReceivedRecord receivedRecords = 1; }
+
+message StreamOffset {
+  oneof offset {
+    SpecialOffset specialOffset = 1;
+    TimestampOffset timestampOffset = 2;
+  }
+}
+
+message ReadStreamRequest {
+  string readerId = 1;
+  string streamName = 2;
+  StreamOffset from = 3;
+  StreamOffset until = 4;
+  // Total number of batches reader read at most
+  uint64 maxReadBatches = 5;
+}
+
+message ReadStreamResponse { repeated ReceivedRecord receivedRecords = 1; }
+
+message ReadSingleShardStreamRequest {
+  string readerId = 1;
+  string streamName = 2;
+  ShardOffset from = 3;
+  ShardOffset until = 4;
+  // Total number of batches reader read at most
+  uint64 maxReadBatches = 5;
+}
+
+message ReadSingleShardStreamResponse {
+  repeated ReceivedRecord receivedRecords = 1;
+}
 
 message TerminateQueryRequest { string queryId = 1; }
 
