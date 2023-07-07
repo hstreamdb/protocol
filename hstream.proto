@@ -769,4 +769,5 @@ enum ErrorCode {
   // 9xx -> ShardReader
   ShardReaderInvalidObjectIdentifier = 900;
   ShardReaderConflictOffset = 901;
+  ShardReaderTooManyShards = 902;
 }
