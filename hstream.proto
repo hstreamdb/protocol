@@ -111,6 +111,11 @@ service HStreamApi {
   // parse query sql, return structuralized information
   rpc ParseSql(ParseSqlRequest) returns (ParseSqlResponse) {}
 
+  rpc RegisterSchema(Schema) returns (google.protobuf.Empty) {}
+  rpc GetSchema(GetSchemaRequest) returns (Schema) {}
+  rpc UnregisterSchema(UnregisterSchemaRequest)
+      returns (google.protobuf.Empty) {}
+
   // connector related apis
   rpc CreateConnector(CreateConnectorRequest) returns (Connector) {}
   rpc ListConnectors(ListConnectorsRequest) returns (ListConnectorsResponse) {}
@@ -497,6 +502,22 @@ message ParseSqlRequest { string sql = 1; }
 message ParseSqlResponse {
   oneof sql { ExecuteViewQuerySql evqSql = 1; }
 }
+
+message ColumnCatalog {
+  uint32 index = 1;
+  string name = 2;
+  string type = 3;
+  bool isNullable = 4;
+  bool isHidden = 5;
+}
+
+message Schema {
+  string owner = 1;
+  repeated ColumnCatalog columns = 2;
+}
+
+message GetSchemaRequest { string owner = 1; }
+message UnregisterSchemaRequest { string owner = 1; }
 
 message ExecuteViewQuerySql { string view = 1; }
 
