@@ -408,8 +408,8 @@ message ReadStreamByKeyRequest {
   string readerId = 1;
   string streamName = 2;
   string key = 3;
-  StreamOffset from = 4;
-  StreamOffset until = 5;
+  ShardOffset from = 4;
+  ShardOffset until = 5;
   // total record return in next round read
   uint64 readRecordCount = 6;
 }
