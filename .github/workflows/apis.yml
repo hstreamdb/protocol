@@ -46,7 +46,7 @@ jobs:
       - name: install dependencies
         run: |
           python3 -m pip install --upgrade pip
-          pip install -U grpcio-tools build twine
+          pip install -U grpcio-tools build wheel twine
 
       - name: build
         run: |
@@ -57,8 +57,8 @@ jobs:
             ./protos/HStream/Server/HStreamApi.proto
           cd python
           sed "s/__VERSION__/${PACKAGE_VERSION}/g" setup_temp.py > setup.py
-          python3 setup.py sdist
-          twine check dist/*
+          python3 -m build --no-isolation
+          twine check --strict dist/*
 
       - name: upload
         if: startsWith(github.ref, 'refs/tags/v')
