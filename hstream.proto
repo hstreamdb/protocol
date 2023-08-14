@@ -388,6 +388,7 @@ message ReadShardStreamRequest {
   // Total number of batches reader read at most
   uint64 maxReadBatches = 4;
   ShardOffset until = 5;
+  string streamName = 6;
 }
 
 message ReadShardStreamResponse { repeated ReceivedRecord receivedRecords = 1; }
@@ -712,6 +713,8 @@ enum StreamStats {
   AppendInRecords = 1;
   AppendTotal = 2;
   AppendFailed = 3;
+  ReadInBytes = 4;
+  ReadInBatches = 5;
 }
 
 enum SubscriptionStats {
