@@ -27,6 +27,9 @@ service HStreamApi {
   rpc CreateStream(Stream) returns (Stream) {}
   rpc DeleteStream(DeleteStreamRequest) returns (google.protobuf.Empty) {}
   rpc TrimStream(TrimStreamRequest) returns (google.protobuf.Empty) {}
+  // Find the oldest recordId in each shard, and trim all the records before
+  // that recordId(exclude)."
+  rpc TrimShards(TrimShardsRequest) returns (TrimShardsResponse) {}
   rpc GetStream(GetStreamRequest) returns (GetStreamResponse) {}
   rpc ListStreams(ListStreamsRequest) returns (ListStreamsResponse) {}
   rpc ListStreamsWithPrefix(ListStreamsWithPrefixRequest)
@@ -264,6 +267,18 @@ message TrimStreamRequest {
   string streamName = 1;
   // trim up to and including this offset
   StreamOffset trimPoint = 2;
+}
+
+message TrimShardsRequest {
+  string streamName = 1;
+  // recordId: "shardId-batchId-batchIndex"
+  repeated string recordIds = 2;
+}
+
+message TrimShardsResponse {
+  // return map{shardId -> RecordId}, records before recordId(exclude) for each
+  // shard are all trimmed
+  map<uint64, string> trimPoints = 1;
 }
 
 message Stream {
@@ -786,6 +801,8 @@ enum ErrorCode {
   StreamEmptyBatchedRecord = 206;
   StreamInvalidRecordSize = 207;
   StreamInvalidOffset = 208;
+  StreamInvalidRecordId = 209;
+  StreamShardNotExists = 210;
 
   // 3xx -> Subscription Errors
   SubscriptionNotFound = 300;
