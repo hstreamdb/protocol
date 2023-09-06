@@ -747,6 +747,7 @@ enum SubscriptionStats {
 enum ConnectorStats {
   DeliveredInRecords = 0;
   DeliveredInBytes = 1;
+  IsAlive = 2;
 }
 
 enum QueryStats {
