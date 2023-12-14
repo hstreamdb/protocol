@@ -848,4 +848,8 @@ enum ErrorCode {
   ShardReaderInvalidObjectIdentifier = 900;
   ShardReaderConflictOffset = 901;
   ShardReaderTooManyShards = 902;
+  ShardReaderDataLossGap = 903;
+  ShardReaderAccessGap = 904;
+  ShardReaderNotInConfigGap = 905;
+  ShardReaderUnknownGap = 906;
 }
