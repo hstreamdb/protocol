@@ -130,7 +130,8 @@ service HStreamApi {
   rpc DeleteConnector(DeleteConnectorRequest) returns (google.protobuf.Empty) {}
   rpc PauseConnector(PauseConnectorRequest) returns (google.protobuf.Empty) {}
   rpc ResumeConnector(ResumeConnectorRequest) returns (google.protobuf.Empty) {}
-  rpc AlterConnectorConfig(AlterConnectorConfigRequest) returns (google.protobuf.Empty) {}
+  rpc AlterConnectorConfig(AlterConnectorConfigRequest)
+      returns (google.protobuf.Empty) {}
 
   // view related apis
   rpc ListViews(ListViewsRequest) returns (ListViewsResponse) {}
@@ -762,7 +763,9 @@ enum QueryStats {
   TotalExecuteErrors = 2;
 }
 
-enum ViewStats { TotalExecuteQueries = 0; }
+enum ViewStats {
+  TotalExecuteQueries = 0;
+}
 
 message StatType {
   oneof stat {
