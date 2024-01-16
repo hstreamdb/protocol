@@ -130,6 +130,8 @@ service HStreamApi {
   rpc DeleteConnector(DeleteConnectorRequest) returns (google.protobuf.Empty) {}
   rpc PauseConnector(PauseConnectorRequest) returns (google.protobuf.Empty) {}
   rpc ResumeConnector(ResumeConnectorRequest) returns (google.protobuf.Empty) {}
+  rpc AlterConnectorConfig(AlterConnectorConfigRequest)
+      returns (google.protobuf.Empty) {}
 
   // view related apis
   rpc ListViews(ListViewsRequest) returns (ListViewsResponse) {}
@@ -543,6 +545,11 @@ message CreateConnectorRequest {
   string type = 2;
   string target = 3;
   string config = 4;
+}
+
+message AlterConnectorConfigRequest {
+  string name = 1;
+  string config = 2;
 }
 
 message ListConnectorsRequest {}
