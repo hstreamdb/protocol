@@ -765,6 +765,16 @@ enum QueryStats {
 
 enum ViewStats { TotalExecuteQueries = 0; }
 
+enum CacheStoreStats {
+  CSAppendInBytes = 0;
+  CSAppendInRecords = 1;
+  CSAppendTotal = 2;
+  CSAppendFailed = 3;
+  CSReadInBytes = 4;
+  CSReadInRecords = 5;
+  CSDeliveredInRecords = 6;
+}
+
 message StatType {
   oneof stat {
     StreamStats streamStat = 1;
@@ -772,6 +782,7 @@ message StatType {
     ConnectorStats connStat = 3;
     QueryStats queryStat = 4;
     ViewStats viewStat = 5;
+    CacheStoreStats cacheStoreStat = 6;
   }
 }
 
