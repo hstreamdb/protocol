@@ -773,6 +773,8 @@ enum CacheStoreStats {
   CSReadInBytes = 4;
   CSReadInRecords = 5;
   CSDeliveredInRecords = 6;
+  CSDeliveredTotal = 7;
+  CSDeliveredFailed = 8;
 }
 
 message StatType {
